@@ -1,0 +1,302 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', monospace;
+}
+
+body {
+    background: #000;
+    color: #ff0033;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+/* Glitch Background */
+.glitch-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(0deg, rgba(255,0,51,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,0,51,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: glitch 0.8s infinite;
+    z-index: -1;
+}
+
+@keyframes glitch {
+    0% { opacity: 0.8; transform: translateX(0); }
+    50% { opacity: 0.3; transform: translateX(2px); }
+    100% { opacity: 0.8; transform: translateX(0); }
+}
+
+/* Main Container */
+.login-container {
+    width: 100%;
+    max-width: 900px;
+    background: #110000;
+    border: 2px solid #ff0033;
+    border-radius: 0;
+    box-shadow: 0 0 40px rgba(255, 0, 51, 0.7);
+    overflow: hidden;
+}
+
+/* Terminal Header */
+.terminal-header {
+    background: linear-gradient(90deg, #220000, #550000);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ff0033;
+}
+
+.terminal-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.terminal-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.control-btn.close { background: #ff0033; }
+.control-btn.minimize { background: #ffcc00; }
+.control-btn.maximize { background: #00cc66; }
+
+/* CRT Monitor */
+.crt-monitor {
+    padding: 30px;
+    position: relative;
+    background: #000;
+    min-height: 500px;
+}
+
+.scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 0, 51, 0.7);
+    animation: scan 3s linear infinite;
+    z-index: 1;
+}
+
+@keyframes scan {
+    0% { top: 0; }
+    100% { top: 100%; }
+}
+
+/* Terminal Log */
+.terminal-log {
+    background: rgba(20, 0, 0, 0.9);
+    border: 1px solid #ff0033;
+    padding: 20px;
+    margin-bottom: 30px;
+    height: 200px;
+    overflow-y: auto;
+    font-size: 0.95em;
+    line-height: 1.5;
+    text-shadow: 0 0 5px #ff0033;
+}
+
+.terminal-log::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-log::-webkit-scrollbar-track {
+    background: #220000;
+}
+
+.terminal-log::-webkit-scrollbar-thumb {
+    background: #ff0033;
+}
+
+/* Input Section */
+.input-section {
+    margin: 25px 0;
+}
+
+.input-label {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #ff6666;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+#accessKey {
+    flex: 1;
+    background: #000;
+    border: 2px solid #ff0033;
+    color: #ff0033;
+    padding: 15px;
+    font-size: 1.2em;
+    letter-spacing: 2px;
+    outline: none;
+}
+
+#accessKey:focus {
+    box-shadow: 0 0 20px rgba(255, 0, 51, 0.8);
+}
+
+#authButton {
+    background: linear-gradient(45deg, #880000, #ff0033);
+    color: white;
+    border: none;
+    padding: 0 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#authButton:hover {
+    background: linear-gradient(45deg, #ff0033, #880000);
+    transform: scale(1.05);
+}
+
+#authButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.hint {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #ff9999;
+    opacity: 0.8;
+}
+
+/* Security Meter */
+.security-meter {
+    margin: 30px 0;
+}
+
+.meter-label {
+    margin-bottom: 10px;
+    color: #ff6666;
+}
+
+.meter-bar {
+    height: 20px;
+    background: #220000;
+    border: 1px solid #ff0033;
+    overflow: hidden;
+}
+
+.meter-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ff0000, #ff0033);
+    transition: width 0.5s;
+}
+
+.meter-text {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* Warning Panel */
+.warning-panel {
+    background: rgba(255, 0, 51, 0.1);
+    border: 1px solid #ff0033;
+    padding: 15px;
+    text-align: center;
+    margin-top: 25px;
+    animation: warningFlash 2s infinite;
+}
+
+@keyframes warningFlash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Footer */
+.terminal-footer {
+    background: #220000;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid #ff0033;
+    font-size: 0.9em;
+}
+
+.blink {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Shake Animation */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .login-container {
+        border-width: 1px;
+        max-width: 100%;
+    }
+    
+    .crt-monitor {
+        padding: 15px;
+        min-height: 400px;
+    }
+    
+    .terminal-log {
+        height: 150px;
+        font-size: 0.85em;
+    }
+    
+    .input-wrapper {
+        flex-direction: column;
+    }
+    
+    #authButton {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .terminal-header, .terminal-footer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .terminal-log {
+        height: 120px;
+    }
+}

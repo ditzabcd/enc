@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⛧ OMEGA ACCESS ⛧</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Basic anti-copy */
+        .no-select {
+            user-select: none;
+        }
+        .allow-select {
+            user-select: text;
+        }
+    </style>
+</head>
+<body class="no-select">
+    <div class="glitch-bg"></div>
+    
+    <div class="login-container">
+        <!-- Terminal Header -->
+        <div class="terminal-header">
+            <div class="terminal-title">
+                <i class="fas fa-skull-crossbones"></i>
+                SYSTEM_OMEGA_735a
+            </div>
+            <div class="terminal-controls">
+                <span class="control-btn close"></span>
+                <span class="control-btn minimize"></span>
+                <span class="control-btn maximize"></span>
+            </div>
+        </div>
+
+        <!-- Main Monitor -->
+        <div class="crt-monitor">
+            <div class="scanline"></div>
+            
+            <!-- Terminal Log -->
+            <div id="terminalLog" class="terminal-log allow-select">
+                > [SYSTEM_BOOT] OMEGA ACCESS TERMINAL v2.0<br>
+                > [SECURITY] ENCRYPTED AUTH ACTIVE<br>
+                > [TIME] <span id="liveTime">00:00:00</span><br>
+                > [STATUS] AWAITING ENCRYPTED KEY<br>
+            </div>
+
+            <!-- Input Section -->
+            <div class="input-section">
+                <div class="input-label">
+                    <i class="fas fa-key"></i>
+                    ENTER ENCRYPTED KEY:
+                </div>
+                <div class="input-wrapper">
+                    <input type="password" id="accessKey" class="allow-select" autocomplete="off" placeholder=">>_" maxlength="50">
+                    <button id="authButton" onclick="verifyAccess()">
+                        <i class="fas fa-play"></i> EXECUTE
+                    </button>
+                </div>
+                <div class="hint">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    ALL ACCESS LOGS ARE ENCRYPTED
+                </div>
+            </div>
+
+            <!-- Security Meter -->
+            <div class="security-meter">
+                <div class="meter-label">SECURITY STATUS:</div>
+                <div class="meter-bar">
+                    <div class="meter-fill" id="securityLevel"></div>
+                </div>
+                <div class="meter-text">ENCRYPTED LAYER ACTIVE</div>
+            </div>
+
+            <!-- Warning -->
+            <div class="warning-panel">
+                <i class="fas fa-radiation-alt"></i>
+                3 FAILED ATTEMPTS = SYSTEM LOCKDOWN
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="terminal-footer">
+            <div class="footer-left">
+                <span class="blink">⛧</span> CONNECTION: SECURE
+            </div>
+            <div class="footer-right">
+                STATUS: <span id="sysStatus">READY</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Audio for Distortion -->
+    <audio id="distortionSound" preload="auto">
+        <source src="sounds/distortion.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPTS -->
+    <script src="auth.js"></script>
+    <script>
+        // Anti-debug (lite version)
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+                (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+                const log = document.getElementById('terminalLog');
+                if(log) log.innerHTML += "> [SECURITY] Debug attempt blocked<br>";
+                return false;
+            }
+        });
+        
+        // Live time update
+        function updateTime() {
+            const timeEl = document.getElementById('liveTime');
+            if(timeEl) {
+                const now = new Date();
+                timeEl.textContent = now.toLocaleTimeString('id-ID', {hour12: false});
+            }
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
