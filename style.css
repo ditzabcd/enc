@@ -1,23 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap');
+
 :root {
     --primary: #8b5cf6;
     --secondary: #d946ef;
     --dark: #020617;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    background: var(--dark);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    overflow: hidden;
-    position: relative;
+/* Reset Standar */
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    -webkit-tap-highlight-color: transparent; 
 }
 
-/* Background Animation */
+/* Container Utama: Paksa di Tengah & Anti-Scroll */
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Supaya gak bisa ditarik atas bawah */
+    background: var(--dark);
+    display: flex;
+    justify-content: center; /* Tengah Horizontal */
+    align-items: center;     /* Tengah Vertikal */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Background Hidup (Aura) */
 .aura-container {
     position: absolute;
     inset: 0;
@@ -28,50 +37,68 @@ body {
 
 .aura-blob {
     position: absolute;
-    width: 60vw;
-    height: 60vw;
+    width: 80vw;
+    height: 80vw;
     border-radius: 50%;
     animation: drift 15s infinite alternate;
 }
 
-.aurora { background: var(--primary); top: -15%; left: -10%; }
+.aurora { background: var(--primary); top: -15%; left: -15%; }
 .violet { background: var(--secondary); bottom: -10%; right: -10%; animation-delay: -5s; }
-.cyan { background: #06b6d4; top: 30%; left: 20%; animation-delay: -8s; }
+.cyan { background: #06b6d4; top: 40%; left: 20%; animation-delay: -8s; }
 
 @keyframes drift {
     from { transform: translate(0, 0) scale(1); }
     to { transform: translate(10%, 15%) scale(1.1); }
 }
 
-/* Glass Card */
+/* --- ANIMASI MUNCUL DARI BAWAH --- */
 .glass-shield {
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(30px) saturate(150%);
-    -webkit-backdrop-filter: blur(30px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 40px;
-    padding: 50px 30px;
-    width: 90%;
-    max-width: 420px;
+    backdrop-filter: blur(35px) saturate(180%);
+    -webkit-backdrop-filter: blur(35px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 35px;
+    padding: 45px 30px;
+    width: 88%; /* Responsif HP */
+    max-width: 420px; /* Limit buat PC */
     text-align: center;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-    animation: fadeIn 1.2s ease-out;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    
+    /* Inti Animasi Smooth */
+    position: relative;
+    opacity: 0;
+    transform: translateY(100px); /* Mulai dari bawah */
+    animation: slideUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Berhenti di tengah pas */
+    }
 }
 
-.shimmer-logo { font-size: 50px; margin-bottom: 20px; animation: pulse 2s infinite; }
-h1 { color: #fff; font-size: 22px; margin-bottom: 10px; }
-p { color: rgba(255, 255, 255, 0.5); font-size: 14px; margin-bottom: 35px; }
+/* Elemen di dalam Card */
+.shimmer-logo { 
+    font-size: 50px; 
+    margin-bottom: 20px; 
+    animation: pulse 2s infinite; 
+}
 
-/* Input */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--primary)); }
+    50% { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--primary)); }
+}
+
+h1 { color: #fff; font-size: 24px; margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px; }
+p { color: rgba(255, 255, 255, 0.5); font-size: 14px; margin-bottom: 40px; }
+
+/* Form Control */
 input {
     width: 100%;
     padding: 18px;
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     color: #fff;
@@ -82,9 +109,12 @@ input {
     transition: 0.3s;
 }
 
-input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+input:focus {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
 
-/* Button */
 button {
     width: 100%;
     padding: 18px;
@@ -93,14 +123,37 @@ button {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
     font-weight: 700;
+    letter-spacing: 1px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.4s ease;
 }
 
-button:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(217, 70, 239, 0.4); }
+button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(217, 70, 239, 0.4);
+}
 
-footer { margin-top: 30px; display: flex; justify-content: center; align-items: center; gap: 10px; }
-.status-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
-#status-text { color: rgba(255, 255, 255, 0.3); font-size: 11px; }
+/* Footer Status */
+footer {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
-@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #22c55e;
+}
+
+#status-text { color: rgba(255, 255, 255, 0.3); font-size: 12px; }
+
+/* Responsive khusus buat HP sangat kecil */
+@media (max-width: 360px) {
+    .glass-shield { padding: 30px 20px; }
+    h1 { font-size: 20px; }
+}
